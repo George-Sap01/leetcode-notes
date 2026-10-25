@@ -2,6 +2,7 @@
 
 #define LEN(arr) sizeof(arr)/sizeof(int)
 
+// nums is a non-descending array.
 int removeDuplicates(int* nums, int numsSize) {
 
     int index = 0;
@@ -9,7 +10,7 @@ int removeDuplicates(int* nums, int numsSize) {
 
     while(peek < numsSize)
     {
-        // printf("nums[%d]=%d,  nums[%d]=%d, k = %d\n", index, nums[index], peek, nums[peek], k);
+        printf("nums[index = %d] = %d,  nums[peek = %d]=%d\n", index, nums[index], peek, nums[peek]);
         if(nums[peek] <= nums[index]) {
             peek++;
             continue;

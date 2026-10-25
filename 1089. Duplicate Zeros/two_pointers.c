@@ -11,9 +11,11 @@ void duplicateZeros(int* arr, int arrSize) {
     }
 
     int len = arrSize + countZero;
+    printf("countzero = %d, size+countzero = %d\n", countZero, len);
     // We just need O(1) space if we scan from back
     // i point to the original array, j point to the new location
     for (int i = arrSize - 1, j = len - 1; i < j; i--, j--) {
+        printf("arr[i = %d] = %d,  arr[j = %d] = %d\n", i, arr[i], j, arr[j]);
         if (arr[i] != 0) 
         {
             if (j < arrSize) 
@@ -111,6 +113,11 @@ int main()
     int arr3[] = {1,0,0,4,5};
     int len_arr3 = LEN(arr3);
 
+    
+    for(int i=0; i<len_arr1; i++) 
+        printf("%d ",arr1[i]);
+
+    printf("\n");
     duplicateZeros(arr1, len_arr1);
 
     for(int i=0; i<len_arr1; i++) 
