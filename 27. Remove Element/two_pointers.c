@@ -3,16 +3,12 @@
 #define LEN(arr) sizeof(arr)/sizeof(int)
 
 int removeElement(int* nums, int numsSize, int val) {
-    int cnt = 0;
-    int left = 0, right = numsSize -1;
     
-    for(int k=0; k<numsSize; k++)
-        if(nums[k] != val)
-            cnt++;
+    int left = 0, right = numsSize -1;
 
     while(left <= right)
     {   
-        // printf("nums[%d]= %d,  nums[%d]=%d\n", left, nums[left], right, nums[right]);
+        printf("nums[%d]= %d,  nums[%d]=%d\n", left, nums[left], right, nums[right]);
         if(nums[left] == val) {
             if(nums[right] == val) {
                 right--;
@@ -25,17 +21,20 @@ int removeElement(int* nums, int numsSize, int val) {
         left++;
     }
 
-    return cnt;
+    return left;
 }
 
 int main()
 {
     int ret;
     int val = 2;
-    int arr[] = {0,1,2,2,3,0,4,2};
+    int arr[] = {0, 1, 3, 0, 4, 2};
     int len = LEN(arr);
 
+    for(int i=0; i<len; i++)
+        printf("%d ", arr[i]);
 
+    printf("\n");
     ret = removeElement(arr, len, val);
 
 
