@@ -22,11 +22,11 @@ int* plusOne(int* digits, int digitsSize, int* returnSize) {
     int *ret  = (int*)malloc(sizeof(int) * (digitsSize + 1));
     int add = 0;
     int last_digit = digits[digitsSize - 1] == 9;
+    int i;
+    
+    if(last_digit) {
 
-    for(int i = digitsSize - 1; i > -1; i--) {
-
-        if(last_digit)
-        {
+        for(i = digitsSize - 1; i > -1; i--) {
             if(digits[i] == 9 && add == 1 || i == digitsSize - 1) { 
                 ret[i + 1]  = 0;
                 add = 1;
@@ -35,23 +35,27 @@ int* plusOne(int* digits, int digitsSize, int* returnSize) {
                 ret[i + 1] = digits[i] + add;
                 add = 0;
             }
-        }
-        else
-        {
-            if(i == digitsSize - 1)
+       }
+    }
+    else{
+        
+        for(i = digitsSize - 1; i > -1; i--) {
+           if(i == digitsSize - 1)
                 ret[i] = digits[i] + 1;
             else
                 ret[i] = digits[i];
         }
 
-        if(last_digit){
-            if(add == 1 && digits[0] == 9)
-                ret[0] = 1;
-            else
-               ret = ret + 1; 
-        }
     }
+
     
+    if(last_digit){
+        printf("digits[i:%d] = %d, add = %d\n", i, digits[i], add);
+        if(add == 1 && digits[0] == 9)
+            ret[0] = 1;
+        else
+           ret = ret + 1; 
+    }
 
 
     *returnSize = digitsSize + 1 * (last_digit && add == 1 && digits[0] == 9);
