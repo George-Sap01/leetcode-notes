@@ -18,18 +18,27 @@ int* findDiagonalOrder(int** mat, int matSize, int matColSize, int* returnSize)
     int m = matSize;
     int n = matColSize;
     int *result = (int*)malloc(m * n * sizeof(int));
-    int k = 0;
+    int k = 0;  // index for the result array
+
+    // s -> sum of indexes for each diagonal 
 
     for (int s = 0; s < m + n - 1; s++)
     {
-        int r = (s < m) ? s : m - 1;
-        int c = s - r;
+        int r = (s < m) ? s : m - 1; // r = row
+        /*
+            if s < m
+                r = s
+            else
+                r = m - 1
+        */
+        int c = s - r; // c = col
 
         if (s % 2 == 0)
         {
             while (r >= 0 && c < n)
             {
-                result[k++] = mat[r][c];
+                result[k] = mat[r][c];
+                k++;
                 r--;
                 c++;
             }
@@ -37,11 +46,18 @@ int* findDiagonalOrder(int** mat, int matSize, int matColSize, int* returnSize)
         else
         {
             r = (s < n) ? 0 : s - n + 1;
+            /*
+                if s < n
+                    r = 0
+                else
+                    r = s - n + 1
+            */
             c = s - r;
 
             while (r < m && c >= 0)
             {
-                result[k++] = mat[r][c];
+                result[k] = mat[r][c];
+                k++;
                 r++;
                 c--;
             }
