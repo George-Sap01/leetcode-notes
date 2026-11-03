@@ -1,47 +1,50 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/**
- * Note: The returned array must be malloced, assume caller calls free().
- */
-int* spiralOrder(int** matrix, int matrixSize, int matrixColSize, int* returnSize) {
-    
-    int n = matrixSize;
-    int m = matrixColSize;
-    int *result = (int*)malloc(sizeof(int) * n * m);
-    *returnSize = n * m;
-
-    int result_index = 0;
-    int top = 0;
-    int bottom = n - 1;
-    int left = 0;
-    int right = matrixColSize - 1;
-    // top to bottom , left to right , bottom to top and right to left .
-
-    int sideways = 1;
-    int i;
+/*
 
 
-    while(top <= bottom && left <= right)
-    {
-            
+    1  2  3 
+    4  5  6
+    7  8  9
+    10 11 12
 
+
+*/
+
+
+int* spiralOrder(int** matrix, int matrixSize, int* matrixColSize, int* returnSize) {
+    int top = 0, bottom = matrixSize - 1;
+    int left = 0, right = matrixColSize[0] - 1;
+
+    int total = matrixSize * matrixColSize[0];
+    int* spiral = (int*)malloc(sizeof(int) * total);
+    int idx = 0;
+
+    while (top <= bottom && left <= right) {
+        for (int i = left; i <= right; i++)
+            spiral[idx++] = matrix[top][i];
+        top++;
+
+        for (int j = top; j <= bottom; j++)
+            spiral[idx++] = matrix[j][right];
+        right--;
+
+        if (top <= bottom) {
+            for (int k = right; k >= left; k--)
+                spiral[idx++] = matrix[bottom][k];
+            bottom--;
+        }
+
+        if (left <= right) {
+            for (int l = bottom; l >= top; l--)
+                spiral[idx++] = matrix[l][left];
+            left++;
+        }
     }
 
-    // Traverse the top row from left to right (from column b to tr), then increment t (move top boundary down).
-
-    // Traverse the right column from top to bottom (from row t to br), then decrement tr (move right boundary left).
-
-    // If t <= br, traverse the bottom row from right to left (from column tr to b), then decrement br (move bottom boundary up).
-
-    // If b <= tr, traverse the left column from bottom to top (from row br to t), then increment b (move left boundary right).
-
-    // Termination Condition:
-
-    // The loop continues as long as the top boundary is less than or equal to the bottom (t <= br) 
-    // and the left boundary is less than or equal to the right (b <= tr).    
-
-    return result;
+    *returnSize = idx;
+    return spiral;
 }
 
 
